@@ -1,4 +1,7 @@
 package com.elyashevich.store.dto.authDto;
 
-public class LoginDto {
+public record LoginDto(
+        String username,
+        String password
+) {
 }

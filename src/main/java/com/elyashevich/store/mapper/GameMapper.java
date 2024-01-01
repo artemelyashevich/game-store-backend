@@ -3,7 +3,9 @@ package com.elyashevich.store.mapper;
 import com.elyashevich.store.dto.gameDto.GameCreateDto;
 import com.elyashevich.store.entity.Game;
 import com.elyashevich.store.entity.Rating;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GameMapper {
     public Game convert(final GameCreateDto gameCreateDto) {
         return Game
