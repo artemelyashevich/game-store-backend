@@ -18,6 +18,8 @@ public record SignUpDto(
         @Email
         String email,
 
+        @NotBlank(message = "Invalid Password: Empty password")
+        @NotNull(message = "Invalid Password: Password is NULL")
         @Size(min = 5, message = "Minimum password length is 2 characters")
         String password
 ) {
