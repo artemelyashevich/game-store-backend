@@ -1,8 +1,8 @@
 package com.elyashevich.store.controller;
 
-import com.elyashevich.store.dto.gameDto.GameCreateDto;
-import com.elyashevich.store.entity.Game;
-import com.elyashevich.store.service.GameService;
+import com.elyashevich.store.dto.authDto.SignUpDto;
+import com.elyashevich.store.entity.User;
+import com.elyashevich.store.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,26 +18,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/games")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-public class GameController {
+public class UserController {
 
-    private final GameService gameService;
+    private final UserService userService;
 
     @GetMapping
-    public List<Game> findAll() {
-        return gameService.findAll();
+    public List<User> findAll() {
+        return userService.findAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Game create(final @RequestBody @Valid GameCreateDto gameCreateDto) {
-        return gameService.create(gameCreateDto);
+    public User create(final @RequestBody @Valid SignUpDto signUpDto) {
+        return userService.create(signUpDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(final @PathVariable String id) {
-        gameService.delete(id);
+        userService.delete(id);
     }
 }

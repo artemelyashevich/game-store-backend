@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Document(collection = "orders")
 @Data
@@ -22,9 +23,9 @@ public class Order {
     @Id
     private String id;
 
-    private Game game;
+    private String gameId;
 
-    private User user;
+    private String userId;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -42,20 +43,20 @@ public class Order {
 
         Order order = (Order) o;
 
-        if (!id.equals(order.id)) return false;
-        if (!game.equals(order.game)) return false;
-        if (!user.equals(order.user)) return false;
-        if (!createdAt.equals(order.createdAt)) return false;
-        return successAt.equals(order.successAt);
+        if (!Objects.equals(id, order.id)) return false;
+        if (!Objects.equals(gameId, order.gameId)) return false;
+        if (!Objects.equals(userId, order.userId)) return false;
+        if (!Objects.equals(createdAt, order.createdAt)) return false;
+        return Objects.equals(successAt, order.successAt);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + game.hashCode();
-        result = 31 * result + user.hashCode();
-        result = 31 * result + createdAt.hashCode();
-        result = 31 * result + successAt.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (gameId != null ? gameId.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
+        result = 31 * result + (successAt != null ? successAt.hashCode() : 0);
         return result;
     }
 }
