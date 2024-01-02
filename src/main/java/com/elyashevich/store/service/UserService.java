@@ -10,6 +10,10 @@ public interface UserService {
 
     User create(SignUpDto signUpDto, ImageCreateDto imageCreateDto) throws java.io.IOException;
 
+    User findByUsername(String username);
+
+    User findByEmail(String email);
+
     List<User> findAll();
 
     void delete(String id);

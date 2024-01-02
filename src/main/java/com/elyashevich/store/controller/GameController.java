@@ -3,6 +3,7 @@ package com.elyashevich.store.controller;
 import com.elyashevich.store.dto.gameDto.GameCreateDto;
 import com.elyashevich.store.dto.imageDto.ImageCreateDto;
 import com.elyashevich.store.entity.Game;
+import com.elyashevich.store.exception.CustomExceptionHandler;
 import com.elyashevich.store.service.GameService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/games")
 @RequiredArgsConstructor
+@CustomExceptionHandler
 public class GameController {
 
     private final GameService gameService;

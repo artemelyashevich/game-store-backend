@@ -2,6 +2,7 @@ package com.elyashevich.store.controller;
 
 import com.elyashevich.store.dto.commentDto.CommentCreateDto;
 import com.elyashevich.store.entity.Comment;
+import com.elyashevich.store.exception.CustomExceptionHandler;
 import com.elyashevich.store.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/comments")
 @RequiredArgsConstructor
+@CustomExceptionHandler
 public class CommentController {
 
     private final CommentService commentService;

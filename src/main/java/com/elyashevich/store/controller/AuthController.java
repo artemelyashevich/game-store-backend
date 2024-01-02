@@ -3,6 +3,7 @@ package com.elyashevich.store.controller;
 import com.elyashevich.store.dto.authDto.LoginDto;
 import com.elyashevich.store.dto.authDto.LoginResponseDto;
 import com.elyashevich.store.dto.authDto.SignUpDto;
+import com.elyashevich.store.exception.CustomExceptionHandler;
 import com.elyashevich.store.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
+@CustomExceptionHandler
 public class AuthController {
 
     private final AuthService authService;

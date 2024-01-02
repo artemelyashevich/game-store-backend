@@ -2,6 +2,7 @@ package com.elyashevich.store.controller;
 
 import com.elyashevich.store.dto.orderDto.OrderCreateDto;
 import com.elyashevich.store.entity.Order;
+import com.elyashevich.store.exception.CustomExceptionHandler;
 import com.elyashevich.store.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
+@CustomExceptionHandler
 public class OrderController {
 
     private final OrderService orderService;

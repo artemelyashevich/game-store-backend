@@ -2,6 +2,7 @@ package com.elyashevich.store.controller;
 
 import com.elyashevich.store.dto.categoryDto.CategoryCreateDto;
 import com.elyashevich.store.entity.Category;
+import com.elyashevich.store.exception.CustomExceptionHandler;
 import com.elyashevich.store.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/categories")
 @RequiredArgsConstructor
+@CustomExceptionHandler
 public class CategoryController {
 
     private final CategoryService categoryService;
