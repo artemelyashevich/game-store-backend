@@ -2,6 +2,7 @@ package com.elyashevich.store.service.impl;
 
 import com.elyashevich.store.dto.categoryDto.CategoryCreateDto;
 import com.elyashevich.store.entity.Category;
+import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.CategoryMapper;
 import com.elyashevich.store.repository.CategoryRepository;
 import com.elyashevich.store.service.CategoryService;
@@ -24,13 +25,26 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category findById(String id) {
+        return categoryRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("Category with id = %s wasn't found", id)));
+    }
+
+    @Override
+    public Category findByTitle(String title) {
+        return categoryRepository.findByTitle(title).orElseThrow(() ->
+                new NotFoundException(String.format("Category with title = %s wasn't found", title)));
+    }
+
+    @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
 
     @Override
     public void delete(String id) {
-        final Category category = categoryRepository.findById(id).orElseThrow();
+        final Category category = categoryRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("Category with id = %s wasn't found", id)));
         categoryRepository.delete(category);
     }
 }

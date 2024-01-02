@@ -2,6 +2,7 @@ package com.elyashevich.store.service.impl;
 
 import com.elyashevich.store.dto.commentDto.CommentCreateDto;
 import com.elyashevich.store.entity.Comment;
+import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.CommentMapper;
 import com.elyashevich.store.repository.CommentRepository;
 import com.elyashevich.store.service.CommentService;
@@ -21,6 +22,12 @@ public class CommentServiceImpl implements CommentService {
     public Comment create(CommentCreateDto commentCreateDto) {
         final Comment comment = commentMapper.convert(commentCreateDto);
         return commentRepository.save(comment);
+    }
+
+    @Override
+    public Comment findById(String id) {
+        return commentRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("Comment with id = %s wasn't found", id)));
     }
 
     @Override

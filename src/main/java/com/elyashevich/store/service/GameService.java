@@ -11,6 +11,8 @@ public interface GameService {
 
     Game create(GameCreateDto gameCreateDto, ImageCreateDto imageCreateDto) throws IOException;
 
+    Game findById(String id);
+
     List<Game> findAll(String q);
 
     void delete(String id);

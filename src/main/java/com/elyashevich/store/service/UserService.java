@@ -14,7 +14,9 @@ public interface UserService {
 
     User findByEmail(String email);
 
-    List<User> findAll();
+    User findById(String id);
+
+    List<User> findAll(String q);
 
     void delete(String id);
 }

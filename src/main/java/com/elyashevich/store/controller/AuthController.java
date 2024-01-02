@@ -3,23 +3,17 @@ package com.elyashevich.store.controller;
 import com.elyashevich.store.dto.authDto.LoginDto;
 import com.elyashevich.store.dto.authDto.LoginResponseDto;
 import com.elyashevich.store.dto.authDto.SignUpDto;
-import com.elyashevich.store.exception.CustomExceptionHandler;
 import com.elyashevich.store.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-@CustomExceptionHandler
 public class AuthController {
 
     private final AuthService authService;

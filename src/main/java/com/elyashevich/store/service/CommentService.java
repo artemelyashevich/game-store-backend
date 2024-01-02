@@ -9,6 +9,8 @@ public interface CommentService {
 
     Comment create(CommentCreateDto commentCreateDto);
 
+    Comment findById(String id);
+
     List<Comment> findAll();
 
     void delete(String id);

@@ -4,6 +4,7 @@ import com.elyashevich.store.dto.gameDto.GameCreateDto;
 import com.elyashevich.store.dto.imageDto.ImageCreateDto;
 import com.elyashevich.store.entity.Game;
 import com.elyashevich.store.entity.Image;
+import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.GameMapper;
 import com.elyashevich.store.repository.GameRepository;
 import com.elyashevich.store.service.GameService;
@@ -30,6 +31,12 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public Game findById(String id) {
+        return gameRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("Game with id = %s wasn't found", id)));
+    }
+
+    @Override
     public List<Game> findAll(String q) {
         if (!q.isEmpty()) {
             return gameRepository.findByQueryTitle(q.toLowerCase());
@@ -39,7 +46,8 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public void delete(String id) {
-        final Game game = gameRepository.findById(id).orElseThrow();
+        final Game game = gameRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("Game with id = %s wasn't found", id)));
         gameRepository.delete(game);
     }
 }

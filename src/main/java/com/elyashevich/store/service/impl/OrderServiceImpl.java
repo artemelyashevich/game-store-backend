@@ -4,6 +4,7 @@ import com.elyashevich.store.dto.orderDto.OrderCreateDto;
 import com.elyashevich.store.entity.Game;
 import com.elyashevich.store.entity.Order;
 import com.elyashevich.store.entity.User;
+import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.OrderMapper;
 import com.elyashevich.store.repository.GameRepository;
 import com.elyashevich.store.repository.OrderRepository;
@@ -37,8 +38,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order findById(String id) {
+        return orderRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("Order with id = %s wasn't found", id))
+        );
+    }
+
+    @Override
     public void delete(String id) {
-        final Order order = orderRepository.findById(id).orElseThrow();
+        final Order order = orderRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("Order with id = %s wasn't found", id))
+        );
         orderRepository.delete(order);
     }
 }

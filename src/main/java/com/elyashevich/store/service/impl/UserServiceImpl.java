@@ -5,11 +5,11 @@ import com.elyashevich.store.dto.imageDto.ImageCreateDto;
 import com.elyashevich.store.entity.Image;
 import com.elyashevich.store.entity.Role;
 import com.elyashevich.store.entity.User;
+import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.UserMapper;
 import com.elyashevich.store.repository.UserRepository;
 import com.elyashevich.store.service.ImageService;
 import com.elyashevich.store.service.UserService;
-import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,22 +35,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username).orElseThrow(() ->
+                new NotFoundException(String.format("User with username = %s wasn't found!", username))
+        );
     }
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).orElseThrow(() ->
+                new NotFoundException(String.format("User with email = %s wasn't found!", email))
+        );
     }
 
     @Override
-    public List<User> findAll() {
+    public User findById(String id) {
+        return userRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("User with id = %s wasn't found!", id))
+        );
+    }
+
+    @Override
+    public List<User> findAll(String q) {
+        if (!q.isEmpty()) {
+            return userRepository.findByQuery(q);
+        }
         return userRepository.findAll();
     }
 
     @Override
     public void delete(String id) {
-        final User user = userRepository.findById(id).orElseThrow();
+        final User user = userRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("User with id = %s wasn't found!", id))
+        );
         userRepository.delete(user);
     }
 }

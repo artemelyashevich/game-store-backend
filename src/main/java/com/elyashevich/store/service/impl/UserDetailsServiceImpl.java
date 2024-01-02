@@ -3,6 +3,7 @@ package com.elyashevich.store.service.impl;
 import com.elyashevich.store.dto.authDto.SignUpDto;
 import com.elyashevich.store.entity.Role;
 import com.elyashevich.store.entity.User;
+import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,8 +28,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        Collection<GrantedAuthority> roles = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
+        User user = userRepository.findByUsername(username).orElseThrow(() ->
+                new NotFoundException(String.format("User with username = %s wasn't found!", username))
+        );
+        Collection<GrantedAuthority> roles = user.getRoles()
+                .stream()
+                .map(role ->
+                        new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),

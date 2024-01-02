@@ -2,6 +2,7 @@ package com.elyashevich.store.service.impl;
 
 import com.elyashevich.store.dto.imageDto.ImageCreateDto;
 import com.elyashevich.store.entity.Image;
+import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.repository.ImageRepository;
 import com.elyashevich.store.service.ImageService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image findById(String id) {
-        return imageRepository.findById(id).orElseThrow();
+        return imageRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("Image with id = %s wasn't found", id)));
     }
 }
