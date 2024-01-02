@@ -1,7 +1,7 @@
 package com.elyashevich.store.controller;
 
 import com.elyashevich.store.dto.authDto.SignUpDto;
-import com.elyashevich.store.dto.imageDto.ImageCreateDto;
+import com.elyashevich.store.dto.userDto.UserUpdateDto;
 import com.elyashevich.store.entity.User;
 import com.elyashevich.store.service.UserService;
 import jakarta.validation.Valid;
@@ -36,6 +36,11 @@ public class UserController {
     @GetMapping("/{id}")
     public User findById(final @PathVariable String id){
         return userService.findById(id);
+    }
+
+    @PatchMapping("/{id}")
+    public User update(final @RequestBody @Valid UserUpdateDto userUpdateDto, final @PathVariable String id) {
+        return userService.update(id, userUpdateDto);
     }
 
     @DeleteMapping("/{id}")

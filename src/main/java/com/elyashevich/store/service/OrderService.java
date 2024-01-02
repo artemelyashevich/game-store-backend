@@ -13,5 +13,9 @@ public interface OrderService {
 
     Order findById(String id);
 
+    /* @Todo implements purchase method */
+
+    Order purchase();
+
     void delete(String id);
 }

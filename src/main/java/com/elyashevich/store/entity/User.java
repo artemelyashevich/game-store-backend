@@ -50,6 +50,8 @@ public class User {
 
     private List<Role> roles;
 
+    private Double balance;
+
     private String imageId;
 
     @Override
@@ -67,6 +69,7 @@ public class User {
         if (!Objects.equals(updatedAt, user.updatedAt)) return false;
         if (!Objects.equals(lastLogin, user.lastLogin)) return false;
         if (!Objects.equals(roles, user.roles)) return false;
+        if (!Objects.equals(balance, user.balance)) return false;
         return Objects.equals(imageId, user.imageId);
     }
 
@@ -80,6 +83,7 @@ public class User {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
+        result = 31 * result + (balance != null ? balance.hashCode() : 0);
         result = 31 * result + (imageId != null ? imageId.hashCode() : 0);
         return result;
     }

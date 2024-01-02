@@ -42,6 +42,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category update(CategoryCreateDto categoryCreateDto) {
+        return null;
+    }
+
+    @Override
     public void delete(String id) {
         final Category category = categoryRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(String.format("Category with id = %s wasn't found", id)));

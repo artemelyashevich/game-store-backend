@@ -43,12 +43,13 @@ public class Game {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    private Double price;
+
     private Long views;
 
     private Rating rating;
 
     private String imageId;
-
 
     @Override
     public boolean equals(Object o) {
@@ -62,6 +63,7 @@ public class Game {
         if (!Objects.equals(description, game.description)) return false;
         if (!Objects.equals(createdAt, game.createdAt)) return false;
         if (!Objects.equals(updatedAt, game.updatedAt)) return false;
+        if (!Objects.equals(price, game.price)) return false;
         if (!Objects.equals(views, game.views)) return false;
         if (!Objects.equals(rating, game.rating)) return false;
         return Objects.equals(imageId, game.imageId);
@@ -74,6 +76,7 @@ public class Game {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (views != null ? views.hashCode() : 0);
         result = 31 * result + (rating != null ? rating.hashCode() : 0);
         result = 31 * result + (imageId != null ? imageId.hashCode() : 0);

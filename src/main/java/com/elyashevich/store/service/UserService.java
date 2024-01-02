@@ -1,7 +1,7 @@
 package com.elyashevich.store.service;
 
 import com.elyashevich.store.dto.authDto.SignUpDto;
-import com.elyashevich.store.dto.imageDto.ImageCreateDto;
+import com.elyashevich.store.dto.userDto.UserUpdateDto;
 import com.elyashevich.store.entity.User;
 
 import java.util.List;
@@ -13,6 +13,8 @@ public interface UserService {
     User findByUsername(String username);
 
     User findByEmail(String email);
+
+    User update(String id, UserUpdateDto userUpdateDto);
 
     User findById(String id);
 

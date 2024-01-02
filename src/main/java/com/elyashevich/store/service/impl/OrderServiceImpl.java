@@ -45,6 +45,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order purchase() {
+        return null;
+    }
+
+    @Override
     public void delete(String id) {
         final Order order = orderRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(String.format("Order with id = %s wasn't found", id))

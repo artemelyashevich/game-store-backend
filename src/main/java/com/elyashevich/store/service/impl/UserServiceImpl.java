@@ -1,16 +1,17 @@
 package com.elyashevich.store.service.impl;
 
 import com.elyashevich.store.dto.authDto.SignUpDto;
-import com.elyashevich.store.dto.imageDto.ImageCreateDto;
-import com.elyashevich.store.entity.Image;
+import com.elyashevich.store.dto.userDto.UserUpdateDto;
 import com.elyashevich.store.entity.Role;
 import com.elyashevich.store.entity.User;
+import com.elyashevich.store.exception.BadRequestException;
 import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.UserMapper;
 import com.elyashevich.store.repository.UserRepository;
 import com.elyashevich.store.service.ImageService;
 import com.elyashevich.store.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final ImageService imageService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User create(SignUpDto signUpDto /*ImageCreateDto imageCreateDto*/) throws java.io.IOException {
@@ -48,6 +50,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User update(String id, UserUpdateDto userUpdateDto) {
+        final User user = findById(id);
+        if (!passwordEncoder.matches(userUpdateDto.password(), user.getPassword())) {
+            throw  new BadRequestException("Password mismatch");
+        }
+        user.setBalance(userUpdateDto.balance());
+        user.setEmail(userUpdateDto.email());
+        user.setUsername(userUpdateDto.username());
+        return userRepository.save(user);
+    }
+
+    @Override
     public User findById(String id) {
         return userRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(String.format("User with id = %s wasn't found!", id))
@@ -64,9 +78,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(String id) {
-        final User user = userRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(String.format("User with id = %s wasn't found!", id))
-        );
+        final User user = findById(id);
         userRepository.delete(user);
     }
 }

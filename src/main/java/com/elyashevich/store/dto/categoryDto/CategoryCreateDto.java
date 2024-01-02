@@ -10,5 +10,6 @@ public record CategoryCreateDto(
         @NotNull(message = "Invalid Title: Title is NULL")
         @Size(min = 2, max = 30, message = "Invalid Title: Must be of 2 - 30 characters")
         String title
+
 ) {
 }

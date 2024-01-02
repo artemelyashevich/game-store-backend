@@ -1,6 +1,7 @@
 package com.elyashevich.store.service.impl;
 
 import com.elyashevich.store.dto.gameDto.GameCreateDto;
+import com.elyashevich.store.dto.gameDto.GameUpdateDto;
 import com.elyashevich.store.dto.imageDto.ImageCreateDto;
 import com.elyashevich.store.entity.Game;
 import com.elyashevich.store.entity.Image;
@@ -37,6 +38,17 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public Game update(String id, GameUpdateDto gameUpdateDto) {
+        final Game game = findById(id);
+        game.setTitle(gameUpdateDto.title());
+        game.setDescription(gameUpdateDto.description());
+        game.setPrice(gameUpdateDto.price());
+        game.setViews(gameUpdateDto.views());
+        game.setRating(gameUpdateDto.rating());
+        return gameRepository.save(game);
+    }
+
+    @Override
     public List<Game> findAll(String q) {
         if (!q.isEmpty()) {
             return gameRepository.findByQueryTitle(q.toLowerCase());
@@ -46,8 +58,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public void delete(String id) {
-        final Game game = gameRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(String.format("Game with id = %s wasn't found", id)));
+        final Game game = findById(id);
         gameRepository.delete(game);
     }
 }

@@ -13,6 +13,10 @@ public record GameCreateDto(
 
         @NotBlank(message = "Invalid Description: Empty description")
         @NotNull(message = "Invalid Description: Description is NULL")
-        String description
+        String description,
+
+        @NotBlank(message = "Invalid Price: Empty price")
+        @NotNull(message = "Invalid Price: Price is NULL")
+        Double price
 ) {
 }
