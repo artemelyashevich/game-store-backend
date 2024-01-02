@@ -7,17 +7,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GameMapper {
-    public Game convert(final GameCreateDto gameCreateDto) {
+    public Game convert(final GameCreateDto gameCreateDto, String imageId) {
         return Game
                 .builder()
-                .title(gameCreateDto.title())
-                .description(gameCreateDto.description())
+                .title(gameCreateDto.title().toLowerCase())
+                .description(gameCreateDto.description().toLowerCase())
                 .views(0L)
                 .rating(Rating
                         .builder()
                         .positive(0L)
                         .negative(0L)
                         .build())
+                .imageId(imageId)
                 .build();
     }
 }

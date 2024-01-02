@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Document(collection = "users")
 @Data
@@ -49,6 +50,8 @@ public class User {
 
     private List<Role> roles;
 
+    private String imageId;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,26 +59,28 @@ public class User {
 
         User user = (User) o;
 
-        if (!id.equals(user.id)) return false;
-        if (!username.equals(user.username)) return false;
-        if (!email.equals(user.email)) return false;
-        if (!password.equals(user.password)) return false;
-        if (!createdAt.equals(user.createdAt)) return false;
-        if (!updatedAt.equals(user.updatedAt)) return false;
-        if (!lastLogin.equals(user.lastLogin)) return false;
-        return roles.equals(user.roles);
+        if (!Objects.equals(id, user.id)) return false;
+        if (!Objects.equals(username, user.username)) return false;
+        if (!Objects.equals(email, user.email)) return false;
+        if (!Objects.equals(password, user.password)) return false;
+        if (!Objects.equals(createdAt, user.createdAt)) return false;
+        if (!Objects.equals(updatedAt, user.updatedAt)) return false;
+        if (!Objects.equals(lastLogin, user.lastLogin)) return false;
+        if (!Objects.equals(roles, user.roles)) return false;
+        return Objects.equals(imageId, user.imageId);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + username.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + createdAt.hashCode();
-        result = 31 * result + updatedAt.hashCode();
-        result = 31 * result + lastLogin.hashCode();
-        result = 31 * result + roles.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
+        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
+        result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
+        result = 31 * result + (roles != null ? roles.hashCode() : 0);
+        result = 31 * result + (imageId != null ? imageId.hashCode() : 0);
         return result;
     }
 }

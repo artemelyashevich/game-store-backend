@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Document(collection = "games")
 @Data
@@ -46,6 +47,9 @@ public class Game {
 
     private Rating rating;
 
+    private String imageId;
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,24 +57,26 @@ public class Game {
 
         Game game = (Game) o;
 
-        if (!id.equals(game.id)) return false;
-        if (!title.equals(game.title)) return false;
-        if (!description.equals(game.description)) return false;
-        if (!createdAt.equals(game.createdAt)) return false;
-        if (!updatedAt.equals(game.updatedAt)) return false;
-        if (!views.equals(game.views)) return false;
-        return rating.equals(game.rating);
+        if (!Objects.equals(id, game.id)) return false;
+        if (!Objects.equals(title, game.title)) return false;
+        if (!Objects.equals(description, game.description)) return false;
+        if (!Objects.equals(createdAt, game.createdAt)) return false;
+        if (!Objects.equals(updatedAt, game.updatedAt)) return false;
+        if (!Objects.equals(views, game.views)) return false;
+        if (!Objects.equals(rating, game.rating)) return false;
+        return Objects.equals(imageId, game.imageId);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + title.hashCode();
-        result = 31 * result + description.hashCode();
-        result = 31 * result + createdAt.hashCode();
-        result = 31 * result + updatedAt.hashCode();
-        result = 31 * result + views.hashCode();
-        result = 31 * result + rating.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
+        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
+        result = 31 * result + (views != null ? views.hashCode() : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (imageId != null ? imageId.hashCode() : 0);
         return result;
     }
 }

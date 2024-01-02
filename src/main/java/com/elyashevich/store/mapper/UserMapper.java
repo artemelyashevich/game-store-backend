@@ -9,13 +9,14 @@ import java.util.List;
 
 @Service
 public class UserMapper {
-    public User convert(final SignUpDto signUpDto, final List<Role> roles) {
+    public User convert(final SignUpDto signUpDto, final List<Role> roles, String imageId) {
         return User
                 .builder()
                 .username(signUpDto.username())
                 .email(signUpDto.email())
                 .password(signUpDto.password())
                 .roles(roles)
+                .imageId(imageId)
                 .build();
     }
 }
