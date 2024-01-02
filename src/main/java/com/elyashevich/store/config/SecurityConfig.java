@@ -1,7 +1,6 @@
 package com.elyashevich.store.config;
 
 
-import com.elyashevich.store.entity.Role;
 import com.elyashevich.store.security.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

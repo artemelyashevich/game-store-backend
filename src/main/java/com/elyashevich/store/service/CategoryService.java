@@ -15,9 +15,7 @@ public interface CategoryService {
 
     List<Category> findAll();
 
-    /* @Todo implements update method */
-
-    Category update(CategoryCreateDto categoryCreateDto);
+    Category update(String id, CategoryCreateDto categoryCreateDto);
 
     void delete(String id);
 }

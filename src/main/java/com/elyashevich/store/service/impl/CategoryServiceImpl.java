@@ -42,14 +42,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(CategoryCreateDto categoryCreateDto) {
-        return null;
+    public Category update(String id, CategoryCreateDto categoryCreateDto) {
+        final Category category = findById(id);
+        category.setTitle(categoryCreateDto.title());
+        return categoryRepository.save(category);
     }
 
     @Override
     public void delete(String id) {
-        final Category category = categoryRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(String.format("Category with id = %s wasn't found", id)));
+        final Category category = findById(id);
         categoryRepository.delete(category);
     }
 }

@@ -1,6 +1,7 @@
 package com.elyashevich.store.controller;
 
 import com.elyashevich.store.dto.commentDto.CommentCreateDto;
+import com.elyashevich.store.dto.commentDto.CommentUpdateDto;
 import com.elyashevich.store.entity.Comment;
 import com.elyashevich.store.service.CommentService;
 import jakarta.validation.Valid;
@@ -31,6 +32,11 @@ public class CommentController {
     @GetMapping("/{id}")
     public Comment findById(final @PathVariable String id) {
         return commentService.findById(id);
+    }
+
+    @PatchMapping("/{id}")
+    public Comment update(final @PathVariable String id, final @Valid CommentUpdateDto commentUpdateDto) {
+        return commentService.update(id, commentUpdateDto);
     }
 
     @DeleteMapping("/{id}")
