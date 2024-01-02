@@ -25,11 +25,11 @@ public class UserServiceImpl implements UserService {
     private final ImageService imageService;
 
     @Override
-    public User create(SignUpDto signUpDto, ImageCreateDto imageCreateDto) throws java.io.IOException {
+    public User create(SignUpDto signUpDto /*ImageCreateDto imageCreateDto*/) throws java.io.IOException {
         final List<Role> roles = new ArrayList<>();
         roles.add(Role.ROLE_USER);
-        Image image = imageService.create(imageCreateDto);
-        final User user = userMapper.convert(signUpDto, roles, image.getId());
+        //Image image = imageService.create(imageCreateDto);
+        final User user = userMapper.convert(signUpDto, roles, "");
         return userRepository.save(user);
     }
 

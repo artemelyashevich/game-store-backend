@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -39,7 +40,10 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException
+            (
+                    MethodArgumentNotValidException e
+            ) {
         Map<String, String> errorMap = new HashMap<>();
         e.getBindingResult().getFieldErrors().forEach(error -> {
             errorMap.put(error.getField(), error.getDefaultMessage());
@@ -48,7 +52,10 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<Map<String, String>> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+    public ResponseEntity<Map<String, String>> handleHttpMessageNotReadableException
+            (
+                    HttpMessageNotReadableException e
+            ) {
         Map<String, String> error = new HashMap<>();
         error.put("message", e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -59,5 +66,15 @@ public class ErrorHandler {
         Map<String, String> error = new HashMap<>();
         error.put("message", "Internal server error exception IOException");
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<Map<String, String>> handleMissingServletRequestParameterException
+            (
+                    MissingServletRequestParameterException e
+            ) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", "Missing param");
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

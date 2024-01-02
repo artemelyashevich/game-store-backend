@@ -16,7 +16,7 @@ public class UserMapper {
                 .email(signUpDto.email())
                 .password(signUpDto.password())
                 .roles(roles)
-                .imageId(imageId)
+                .imageId("")
                 .build();
     }
 }

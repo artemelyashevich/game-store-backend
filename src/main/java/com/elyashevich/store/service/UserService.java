@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
-    User create(SignUpDto signUpDto, ImageCreateDto imageCreateDto) throws java.io.IOException;
+    User create(SignUpDto signUpDto/*, ImageCreateDto imageCreateDto*/) throws java.io.IOException;
 
     User findByUsername(String username);
 

@@ -27,10 +27,10 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User create(
-            final @RequestBody @Valid SignUpDto signUpDto,
-            final @RequestBody @Valid ImageCreateDto imageCreateDto
+            final @RequestBody @Valid SignUpDto signUpDto
+            //final @RequestBody @Valid ImageCreateDto imageCreateDto
     ) throws IOException {
-        return userService.create(signUpDto, imageCreateDto);
+        return userService.create(signUpDto/*, imageCreateDto*/);
     }
 
     @GetMapping("/{id}")
