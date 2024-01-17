@@ -15,8 +15,8 @@ public record GameCreateDto(
         @NotNull(message = "Invalid Description: Description is NULL")
         String description,
 
-        @NotBlank(message = "Invalid Price: Empty price")
-        @NotNull(message = "Invalid Price: Price is NULL")
-        Double price
+        Double price,
+
+        String imageId
 ) {
 }

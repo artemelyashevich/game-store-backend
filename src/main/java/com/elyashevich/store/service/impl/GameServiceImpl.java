@@ -2,9 +2,7 @@ package com.elyashevich.store.service.impl;
 
 import com.elyashevich.store.dto.gameDto.GameCreateDto;
 import com.elyashevich.store.dto.gameDto.GameUpdateDto;
-import com.elyashevich.store.dto.imageDto.ImageCreateDto;
 import com.elyashevich.store.entity.Game;
-import com.elyashevich.store.entity.Image;
 import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.GameMapper;
 import com.elyashevich.store.repository.GameRepository;
@@ -25,9 +23,8 @@ public class GameServiceImpl implements GameService {
     private final ImageService imageService;
 
     @Override
-    public Game create(GameCreateDto gameCreateDto, ImageCreateDto imageCreateDto) throws IOException {
-        Image image = imageService.create(imageCreateDto);
-        final Game game = gameMapper.convert(gameCreateDto, image.getId());
+    public Game create(GameCreateDto gameCreateDto) {
+        final Game game = gameMapper.convert(gameCreateDto);
         return gameRepository.save(game);
     }
 

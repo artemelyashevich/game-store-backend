@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GameMapper {
-    public Game convert(final GameCreateDto gameCreateDto, final String imageId) {
+    public Game convert(final GameCreateDto gameCreateDto) {
         return Game
                 .builder()
                 .title(gameCreateDto.title().toLowerCase())
@@ -19,7 +19,7 @@ public class GameMapper {
                         .positive(0L)
                         .negative(0L)
                         .build())
-                .imageId(imageId)
+                .imageId(gameCreateDto.imageId())
                 .price(gameCreateDto.price())
                 .build();
     }

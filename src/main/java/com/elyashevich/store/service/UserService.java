@@ -12,13 +12,15 @@ public interface UserService {
 
     User findByUsername(String username);
 
+    User createAdmin(SignUpDto signUpDto);
+
     User findByEmail(String email);
 
     User update(String id, UserUpdateDto userUpdateDto);
 
     User findById(String id);
 
-    List<User> findAll(String q);
+    List<User> findAll(String q) throws RuntimeException;
 
     void delete(String id);
 }

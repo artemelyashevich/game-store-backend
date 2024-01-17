@@ -11,12 +11,15 @@ import com.elyashevich.store.repository.UserRepository;
 import com.elyashevich.store.service.ImageService;
 import com.elyashevich.store.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -32,20 +35,31 @@ public class UserServiceImpl implements UserService {
         roles.add(Role.ROLE_USER);
         //Image image = imageService.create(imageCreateDto);
         final User user = userMapper.convert(signUpDto, roles, "");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() ->
-                new NotFoundException(String.format("User with username = %s wasn't found!", username))
+                new NotFoundException(String.format("User with username = '%s' wasn't found!", username))
         );
+    }
+
+    @Override
+    public User createAdmin(SignUpDto signUpDto) {
+        final List<Role> roles = new ArrayList<>();
+        roles.add(Role.ROLE_USER);
+        roles.add(Role.ROLE_ADMIN);
+        final User user = userMapper.convert(signUpDto, roles, "");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() ->
-                new NotFoundException(String.format("User with email = %s wasn't found!", email))
+                new NotFoundException(String.format("User with email = '%s' wasn't found!", email))
         );
     }
 
@@ -64,14 +78,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(String id) {
         return userRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(String.format("User with id = %s wasn't found!", id))
+                new NotFoundException(String.format("User with id = '%s' wasn't found!", id))
         );
     }
 
     @Override
-    public List<User> findAll(String q) {
+    public List<User> findAll(String q) throws RuntimeException {
         if (!q.isEmpty()) {
-            return userRepository.findByQuery(q);
+            List<User> users = userRepository.findByQuery(q);
+            if (users.isEmpty()) {
+                throw new NotFoundException(String.format("User with username = '%s' wasn't found!", q));
+            }
+            return users;
         }
         return userRepository.findAll();
     }

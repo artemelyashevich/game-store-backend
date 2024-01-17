@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface GameService {
 
-    Game create(GameCreateDto gameCreateDto, ImageCreateDto imageCreateDto) throws IOException;
+    Game create(GameCreateDto gameCreateDto);
 
     Game findById(String id);
 

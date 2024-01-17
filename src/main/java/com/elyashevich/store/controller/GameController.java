@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/games")
+@CrossOrigin(origins = "http://127.0.0.1:5173/")
 @RequiredArgsConstructor
 public class GameController {
 
@@ -28,10 +29,9 @@ public class GameController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Game create(
-            final @RequestBody @Valid GameCreateDto gameCreateDto,
-            final @RequestBody @Valid ImageCreateDto imageCreateDto
+            final @RequestBody @Valid GameCreateDto gameCreateDto
     ) throws IOException {
-        return gameService.create(gameCreateDto, imageCreateDto);
+        return gameService.create(gameCreateDto);
     }
 
     @GetMapping("/{id}")
