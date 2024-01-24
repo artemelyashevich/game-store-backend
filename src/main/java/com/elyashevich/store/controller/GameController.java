@@ -2,7 +2,6 @@ package com.elyashevich.store.controller;
 
 import com.elyashevich.store.dto.gameDto.GameCreateDto;
 import com.elyashevich.store.dto.gameDto.GameUpdateDto;
-import com.elyashevich.store.dto.imageDto.ImageCreateDto;
 import com.elyashevich.store.entity.Game;
 import com.elyashevich.store.service.GameService;
 import jakarta.validation.Valid;

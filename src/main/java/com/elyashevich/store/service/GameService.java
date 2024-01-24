@@ -2,7 +2,6 @@ package com.elyashevich.store.service;
 
 import com.elyashevich.store.dto.gameDto.GameCreateDto;
 import com.elyashevich.store.dto.gameDto.GameUpdateDto;
-import com.elyashevich.store.dto.imageDto.ImageCreateDto;
 import com.elyashevich.store.entity.Game;
 
 import java.io.IOException;

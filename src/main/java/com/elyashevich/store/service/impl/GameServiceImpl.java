@@ -7,11 +7,9 @@ import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.GameMapper;
 import com.elyashevich.store.repository.GameRepository;
 import com.elyashevich.store.service.GameService;
-import com.elyashevich.store.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -20,7 +18,6 @@ public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
-    private final ImageService imageService;
 
     @Override
     public Game create(GameCreateDto gameCreateDto) {

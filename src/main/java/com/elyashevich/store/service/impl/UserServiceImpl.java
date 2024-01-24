@@ -8,14 +8,12 @@ import com.elyashevich.store.exception.BadRequestException;
 import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.UserMapper;
 import com.elyashevich.store.repository.UserRepository;
-import com.elyashevich.store.service.ImageService;
 import com.elyashevich.store.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,14 +24,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final ImageService imageService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User create(SignUpDto signUpDto /*ImageCreateDto imageCreateDto*/) throws java.io.IOException {
+    public User create(SignUpDto signUpDto ) throws java.io.IOException {
         final List<Role> roles = new ArrayList<>();
         roles.add(Role.ROLE_USER);
-        //Image image = imageService.create(imageCreateDto);
         final User user = userMapper.convert(signUpDto, roles, "");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
