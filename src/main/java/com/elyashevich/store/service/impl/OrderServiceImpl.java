@@ -11,10 +11,12 @@ import com.elyashevich.store.repository.OrderRepository;
 import com.elyashevich.store.repository.UserRepository;
 import com.elyashevich.store.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -29,16 +31,19 @@ public class OrderServiceImpl implements OrderService {
         final User user = userRepository.findById(orderCreateDto.userId()).orElseThrow();
         final Game game = gameRepository.findById(orderCreateDto.gameId()).orElseThrow();
         final Order order = orderMapper.convert(orderCreateDto);
+        log.info("CREATE NEW ORDER\n" + user);
         return orderRepository.save(order);
     }
 
     @Override
     public List<Order> findAll() {
+        log.info("FIND ALL ORDERS");
         return orderRepository.findAll();
     }
 
     @Override
     public Order findById(String id) {
+        log.info("FIND ORDER BY ID");
         return orderRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(String.format("Order with id = %s wasn't found", id))
         );
@@ -54,6 +59,7 @@ public class OrderServiceImpl implements OrderService {
         final Order order = orderRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(String.format("Order with id = %s wasn't found", id))
         );
+        log.info("DELETE ORDER\n" + order);
         orderRepository.delete(order);
     }
 }
