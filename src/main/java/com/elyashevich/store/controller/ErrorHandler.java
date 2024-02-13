@@ -65,7 +65,7 @@ public class ErrorHandler {
         Map<String, String> error = new HashMap<>();
         error.put("message", e.getMessage());
         log.warn(e.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ExceptionHandler(IOException.class)
@@ -84,6 +84,6 @@ public class ErrorHandler {
         Map<String, String> error = new HashMap<>();
         error.put("message", "Missing param");
         log.warn(e.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

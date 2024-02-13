@@ -37,6 +37,7 @@ public class OrderController {
     }
 
     @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public void update(
             final @PathVariable String orderId,
             final @RequestParam String userId,

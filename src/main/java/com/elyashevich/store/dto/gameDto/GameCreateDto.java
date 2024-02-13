@@ -17,6 +17,10 @@ public record GameCreateDto(
 
         Double price,
 
-        String imageId
+        String imageId,
+
+        @NotBlank(message = "Invalid category id: Empty category id")
+        @NotNull(message = "Invalid category id: category id is NULL")
+        String categoryId
 ) {
 }

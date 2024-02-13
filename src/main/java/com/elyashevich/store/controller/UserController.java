@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@Tag(name="user_controller")
+@Tag(name = "user_controller")
 @RestController
 @RequestMapping("/api/v1/users")
 @CrossOrigin(origins = {"https://6-web-mmf.github.io", "http://127.0.0.1:5173/"})
@@ -29,19 +29,17 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User create(
-            final @RequestBody @Valid SignUpDto signUpDto
-            //final @RequestBody @Valid ImageCreateDto imageCreateDto
-    ) throws IOException {
-        return userService.create(signUpDto/*, imageCreateDto*/);
+    public User create(final @RequestBody @Valid SignUpDto signUpDto) throws IOException {
+        return userService.create(signUpDto);
     }
 
     @GetMapping("/{id}")
-    public User findById(final @PathVariable String id){
+    public User findById(final @PathVariable String id) {
         return userService.findById(id);
     }
 
     @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public User update(final @RequestBody @Valid UserUpdateDto userUpdateDto, final @PathVariable String id) {
         return userService.update(id, userUpdateDto);
     }

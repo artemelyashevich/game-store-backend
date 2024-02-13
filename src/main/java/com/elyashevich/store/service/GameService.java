@@ -17,5 +17,7 @@ public interface GameService {
 
     List<Game> findAll(String q);
 
+    Game addView(String id);
+
     void delete(String id);
 }

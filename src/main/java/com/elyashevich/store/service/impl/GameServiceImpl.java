@@ -2,10 +2,12 @@ package com.elyashevich.store.service.impl;
 
 import com.elyashevich.store.dto.gameDto.GameCreateDto;
 import com.elyashevich.store.dto.gameDto.GameUpdateDto;
+import com.elyashevich.store.entity.Category;
 import com.elyashevich.store.entity.Game;
 import com.elyashevich.store.exception.NotFoundException;
 import com.elyashevich.store.mapper.GameMapper;
 import com.elyashevich.store.repository.GameRepository;
+import com.elyashevich.store.service.CategoryService;
 import com.elyashevich.store.service.GameService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +22,11 @@ public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
+    private final CategoryService categoryService;
 
     @Override
     public Game create(GameCreateDto gameCreateDto) {
+        categoryService.findById(gameCreateDto.categoryId());
         final Game game = gameMapper.convert(gameCreateDto);
         log.info("CREATE NEW GAME\n" + game);
         return gameRepository.save(game);
@@ -54,6 +58,13 @@ public class GameServiceImpl implements GameService {
             return gameRepository.findByQueryTitle(q.toLowerCase());
         }
         return gameRepository.findAll();
+    }
+
+    @Override
+    public Game addView(String id) {
+        final Game game = findById(id);
+        game.setViews(game.getViews() + 1);
+        return gameRepository.save(game);
     }
 
     @Override

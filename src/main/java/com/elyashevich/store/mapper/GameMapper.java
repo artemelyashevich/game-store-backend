@@ -21,6 +21,7 @@ public class GameMapper {
                         .build())
                 .imageId(gameCreateDto.imageId())
                 .price(gameCreateDto.price())
+                .categoryId(gameCreateDto.categoryId())
                 .build();
     }
 

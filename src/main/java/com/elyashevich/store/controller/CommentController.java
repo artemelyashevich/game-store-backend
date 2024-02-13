@@ -38,6 +38,7 @@ public class CommentController {
     }
 
     @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Comment update(final @PathVariable String id, final @Valid CommentUpdateDto commentUpdateDto) {
         return commentService.update(id, commentUpdateDto);
     }

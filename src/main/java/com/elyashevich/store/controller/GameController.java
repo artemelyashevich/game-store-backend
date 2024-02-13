@@ -47,10 +47,11 @@ public class GameController {
 
     @GetMapping("/{id}")
     public Game findById(final @PathVariable String id) {
-        return gameService.findById(id);
+        return gameService.addView(id);
     }
 
     @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Game update(final @PathVariable String id, final @RequestBody @Valid GameUpdateDto gameUpdateDto) {
         return gameService.update(id, gameUpdateDto);
     }

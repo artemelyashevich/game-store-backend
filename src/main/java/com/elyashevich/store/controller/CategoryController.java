@@ -37,6 +37,7 @@ public class CategoryController {
     }
 
     @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Category update(final @PathVariable String id, final @Valid CategoryCreateDto categoryCreateDto) {
         return categoryService.update(id, categoryCreateDto);
     }
